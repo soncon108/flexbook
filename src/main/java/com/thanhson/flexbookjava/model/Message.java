@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,20 +19,20 @@ public class Message {
     @Column(name = "message_id")
     private Long messageId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
     private User receiver;
 
-    @Column(name = "message", nullable = false)
+    @Column(name = "message")
     private String message;
 
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 }

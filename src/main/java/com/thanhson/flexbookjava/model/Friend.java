@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,24 +19,25 @@ public class Friend {
     @Column(name = "friend_id")
     private Long friendId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id1", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id1")
     private User user1;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id2", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "user_id2")
     private User user2;
 
-    @Column(name = "status", nullable = false, length = 10)
-    private String status;
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    private FriendStatus status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "action_user_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "action_user_id")
     private User actionUser;
 
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private Timestamp createdAt;
 
-    @Column(name = "updated_at", columnDefinition = "TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP")
-    private LocalDateTime updatedAt;
+    @Column(name = "updated_at")
+    private Timestamp updatedAt;
 }
